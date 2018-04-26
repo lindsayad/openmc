@@ -36,6 +36,7 @@ module openmc_api
 
   private
   public :: openmc_calculate_volumes
+  public :: openmc_cell_filter_get_bins
   public :: openmc_cell_get_id
   public :: openmc_cell_get_fill
   public :: openmc_cell_set_fill
