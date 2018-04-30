@@ -26,6 +26,30 @@ def pincell_model():
     mat_tally.scores = ['total', 'elastic', '(n,gamma)']
     pincell.tallies.append(mat_tally)
 
+    legendre_filter = openmc.LegendreFilter(3)
+    legendre_tally = openmc.Tally()
+    legendre_tally.filters = [legendre_filter]
+    legendre_tally.scores = ['flux']
+    pincell.tallies.append(legendre_tally)
+
+    spatial_lgndre_filter = openmc.SpatialLegendreFilter(4, 'z', -1, 1)
+    spatial_lgndre_tally = openmc.Tally()
+    spatial_lgndre_tally.filters = [spatial_lgndre_filter]
+    spatial_lgndre_tally.scores = ['flux']
+    pincell.tallies.append(spatial_lgndre_tally)
+
+    sph_filter = openmc.SphericalHarmonicsFilter(5)
+    sph_tally = openmc.Tally()
+    sph_tally.filters = [sph_filter]
+    sph_tally.scores = ['flux']
+    pincell.tallies.append(sph_tally)
+
+    zernike_filter = openmc.ZernikeFilter(6)
+    zernike_tally = openmc.Tally()
+    zernike_tally.filters = [zernike_filter]
+    zernike_tally.scores = ['flux']
+    pincell.tallies.append(zernike_tally)
+
     # Write XML files in tmpdir
     with cdtemp():
         pincell.export_to_xml()
@@ -167,6 +191,10 @@ def test_tally(capi_init):
     assert not t.active
     t.active = True
     assert t.active
+
+
+def test_expansion_orders(capi_init):
+
 
 
 def test_new_tally(capi_init):
